@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Control with PDF</title>
+    <!-- Bootstrap CSS -->
+    {%include 'vocal_app/common/common_css.html'%}
+    <style>
+        /* body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #6ecc6e;
+        } */
+
+        .textarea-container {
+            width: 95%;
+            height: 70vh; /* Set height to 70% of the viewport height */
+           
+            display: flex;
+            flex-direction: column;
+        }
+
+        .textarea-container textarea {
+            width: 100%;
+            height: 100%;
+            resize: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid #ced4da;
+            border-radius: 5px;
+            overflow-y: auto; /* Make the textarea scrollable */
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            width: 80%;
+        }
+
+        .button-row .btn-group {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            margin: 0 5px;
+        }
+        #center
+        {
+            width: 95%;
+            height: 70vh;
+            margin: 0px auto;
+            margin-top: 90px;
+            margin-left: 5%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-body">
+
+        {% include 'vocal_app/user/user_header.html' %}
+
+
+        <div id="center">
+
+        <h2 style="text-align: center;"> Text to Voice</h2>
+   
+    <div class="textarea-container">
+        <textarea id="textArea" placeholder="Text content will appear here..."></textarea>
+        <div class="button-row">
+            <!-- Select PDF -->
+            <input type="file" id="pdfInput" accept=".pdf" class="btn btn-outline-primary">
+            <!-- Play/Pause/Resume/Stop Buttons -->
+            <div class="btn-group">
+                <button id="playBtn" class="btn btn-success" disabled>Play</button>
+                <button id="pauseBtn" class="btn btn-warning" disabled>Pause</button>
+                <button id="resumeBtn" class="btn btn-info" disabled>Resume</button>
+                <button id="stopBtn" class="btn btn-danger" disabled>Stop</button>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+    <!-- Include PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+    <script>
+        const pdfInput = document.getElementById('pdfInput');
+        const textArea = document.getElementById('textArea');
+        let speechSynthesisUtterance;
+        let isSpeaking = false;
+
+        // Handle PDF upload and extract text
+        pdfInput.addEventListener('change', async (event) => {
+            const file = event.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                const fileReader = new FileReader();
+                fileReader.onload = async function () {
+                    const typedArray = new Uint8Array(this.result);
+                    const pdf = await pdfjsLib.getDocument(typedArray).promise;
+                    let extractedText = '';
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const textContent = await page.getTextContent();
+                        const pageText = textContent.items.map(item => item.str).join(' ');
+                        extractedText += pageText + '\n';
+                    }
+                    textArea.value = extractedText;
+                    document.getElementById('playBtn').disabled = false; // Enable play button after PDF upload
+                };
+                fileReader.readAsArrayBuffer(file);
+            } else {
+                alert('Please upload a valid PDF file.');
+            }
+        });
+
+        // Initialize Speech Synthesis
+        const synth = window.speechSynthesis;
+
+        // Play Button
+        document.getElementById('playBtn').addEventListener('click', () => {
+            if (synth.speaking || isSpeaking) {
+                alert('Already speaking!');
+                return;
+            }
+            const text = textArea.value.trim();
+            if (text) {
+                speechSynthesisUtterance = new SpeechSynthesisUtterance(text);
+                synth.speak(speechSynthesisUtterance);
+                isSpeaking = true;
+
+                // Disable Play and Resume buttons, Enable Pause and Stop buttons
+                document.getElementById('playBtn').disabled = true;
+                document.getElementById('resumeBtn').disabled = true;
+                document.getElementById('pauseBtn').disabled = false;
+                document.getElementById('stopBtn').disabled = false;
+            } else {
+                alert('Textarea is empty!');
+            }
+        });
+
+        // Pause Button
+        document.getElementById('pauseBtn').addEventListener('click', () => {
+            if (synth.speaking && !synth.paused) {
+                synth.pause();
+                document.getElementById('pauseBtn').disabled = true;
+                document.getElementById('resumeBtn').disabled = false;
+            }
+        });
+
+        // Resume Button
+        document.getElementById('resumeBtn').addEventListener('click', () => {
+            if (synth.paused) {
+                synth.resume();
+                document.getElementById('resumeBtn').disabled = true;
+                document.getElementById('pauseBtn').disabled = false;
+            }
+        });
+
+        // Stop Button
+        document.getElementById('stopBtn').addEventListener('click', () => {
+            if (synth.speaking || isSpeaking) {
+                synth.cancel();
+                isSpeaking = false;
+
+                // Disable all buttons, Enable Play button
+                document.getElementById('playBtn').disabled = false;
+                document.getElementById('pauseBtn').disabled = true;
+                document.getElementById('resumeBtn').disabled = true;
+                document.getElementById('stopBtn').disabled = true;
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+{% include 'vocal_app/common/footer.html' %}
+</body>
+
+</html>

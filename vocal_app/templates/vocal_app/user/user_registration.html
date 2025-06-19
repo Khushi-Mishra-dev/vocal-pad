@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+    {% include 'vocal_app/common/common_css.html' %}
+
+    <style>
+         .bg {
+
+            background-image: url("{%static 'vocal_app/images/registration back 3.jpg'%}");
+            background-repeat: no-repeat;
+            background-size: cover
+        } 
+
+    
+
+        div.reg-form {
+            margin-left: auto;
+            margin-right: auto;
+            /* background-color: rgb(112, 112, 56); */
+            margin-top: 20px;
+            border: 3px solid white;
+            border-radius: 10px;
+            width: 30%;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-body bg">
+        <!-- <div class="container-fluid bg-warning">
+            <h3 style="text-align: center;color: rebeccapurple;margin-bottom: 0px;">Registration Form</h3>
+        </div> -->
+
+        {% include 'vocal_app/common/navbar.html' %}
+
+        <!-- form code start -->
+
+        <div class="container-fluid" style="background-color: antiquewhite;text-align: center;">
+            <h4 style="color: rebeccapurple;">User Registration Form</h4>
+        </div>
+        <form method="post" action="/user_registration/" enctype="multipart/form-data"  novalidate class="needs-validation" autocomplete="off">
+            {%csrf_token%}
+            <div class="reg-form">
+
+                <!-- <div class="form-floating mb-3"> -->
+                <!-- <input type="email" name="email" id="email" class="form-control"required placeholder="Enter email here">
+     -->
+                <label for="email">Enter email</label>
+                <br>
+                <input type="email" name="u_email" id="email" class="form-control" required              placeholder="Enter email here">
+                <!-- </div> -->
+                <div class="invalid-feedback">
+                    Please provide a valid EMAILID.
+                  </div>
+                <br><br>
+                <!-- <div class="form-floating mb-3"> -->
+
+                <label for="account_pass">Enter password here</label>
+                <br>
+                <input type="password" name="u_password" id="account_pass" class="form-control" required
+                    placeholder="Enter password here">
+                    <div class="invalid-feedback">
+                        Please provide a valid Password.
+                      </div>
+
+                <!-- </div> -->
+                <br><br>
+                <!-- <div class="form-floating mb-3"> -->
+
+                <label for="name">Enter name here</label>
+                <br>
+                <input type="text" name="u_name" id="name" class="form-control" required placeholder="Enter name here"  oninput="validateInput(event)">
+                
+                <div class="invalid-feedback">
+                    Please provide your Name here.
+                  </div><!-- </div> -->
+                <br><br>
+                <!-- <div class="form-floating mb-3"> -->
+
+                <label for="phone">Enter phone number here</label>
+                <br>
+                <input type="text" name="u_phone" id="user_phone" class="form-control" required placeholder="Enter phone here" maxlength="10">
+                <div class="invalid-feedback">
+                    Please provide a valid Phone No.
+                  </div>
+            <!-- </div> -->
+                <br><br>
+
+                <!-- <div class="form-floating mb-3"> -->
+
+                <label for="address" class="form-label">Enter your Address here</label>
+                <br>
+                <textarea name="u_address" id="address" class="form-control" required
+                    placeholder="Enter Your address"></textarea>
+                    <div class="invalid-feedback">
+                        Please provide a valid Address.
+                      </div>
+                <br><br>
+
+                <label for="profile pic">profile pic</label>
+                <br>
+                <input type="file" name="u_file" id="profile pic" class="form-control" required
+                    placeholder="Enter your profile pic">
+                    <div class="invalid-feedback">
+                        Please provide your Profile Pic.
+                      </div>
+                <br><br>
+                <div class="text-center">
+                    <!-- <button type="reset" class="btn btn-danger">Reset</button> -->
+                    <button type="submit" class="btn btn-success">Submit</button>
+
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+    </div>
+
+    </form>
+
+
+    <!-- form code end -->
+    </div>
+    {% include 'vocal_app/common/footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+        <script>
+            function validateInput(event) {
+            const input = event.target.value;
+            const regex = /^[a-zA-Z ]*$/; // Regular expression to match only characters
+            if (!regex.test(input)) {
+            // If input contains anything other than characters, remove them
+            event.target.value = input.replace(/[^a-zA-Z]/g, '');
+            alert("only aplhabets allowed")
+            // Swal.fire("Only Alphabets are allowed");
+            }
+            }
+            </script>
+    
+    <!-- for digits validation -->
+    
+    <script>
+    
+        document.getElementById('user_phone').addEventListener('keydown', function(event) {
+        // Allow only digits and backspace/delete keys
+        if (!(event.key === 'Backspace' || event.key === 'Delete' || /\d/.test(event.key))) {
+        alert("Only 10 digits are allowed")
+        // Swal.fire("Only 10 digits are allowed");
+        event.preventDefault();
+        }
+        });
+        
+        </script>
+        <script src="{%static 'vocal_app/js/custom_validation.js'%}"></script>
+</body>
+
+</html>

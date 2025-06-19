@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AboutUs</title>
+    {% include 'vocal_app/common/common_css.html' %}
+    <style>
+        /* body{
+
+            background-image: url("{%static 'vocal_app/images/background.jpg'%}");
+            background-repeat:no-repeat;
+            background-size: cover;
+        } */
+
+        /*head code start */
+        body {
+            /* background: linear-gradient(to right, #f2f7fa, #d9e4ec); */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .about-us {
+            display: flex;
+            padding: 60px 40px;
+            margin: 40px auto;
+            max-width: 1000px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .about-us img {
+            width: 40%;
+            height: auto;
+            object-fit: fill;
+            border-radius: 10px;
+        }
+
+        .about-us-text {
+            width: 60%;
+            padding-left: 40px;
+        }
+
+        .about-us h1 {
+            font-size: 42px;
+            color: #007bff;
+            text-align: left;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+        }
+
+        .about-us h1:hover {
+            color: #0056b3;
+        }
+
+        .about-us h2 {
+            font-size: 30px;
+            color: #333;
+            margin-top: 40px;
+            transition: transform 0.3s;
+        }
+
+        .about-us h2:hover {
+            transform: scale(1.05);
+        }
+
+        .about-us p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .about-us ul {
+            padding-left: 20px;
+            font-size: 18px;
+            color: #444;
+        }
+
+        .about-us ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .about-us ul li::before {
+            content: "✓";
+            color: #007bff;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .contact-section {
+            margin-top: 60px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-section h2 {
+            font-size: 32px;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .contact-details .user {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .contact-details .user img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            border: 2px solid #007bff;
+        }
+
+        .contact-details .user p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+    
+
+
+        /*head code end */
+    </style>
+</head>
+<body style="background-color: rgb(103, 157, 204)">
+    <div class="main-body">
+    <div class="container-fluid bg-warning">
+        <h3 style="text-align: center;color: rebeccapurple;margin-bottom:0px;">👤Who we are know about us👤</h3>
+       </div>
+    
+    {% include 'vocal_app/common/navbar.html' %}
+
+    <!-- body content code start -->
+    <section class="about-us">
+        <!-- Image on the left side -->
+        <img src="{%static 'vocal_app/images/about.png'%}" alt="About Us Image">
+
+        <!-- Text content on the right side -->
+        <div class="about-us-text">
+            <h1 style="text-align: center;">About Us</h1>
+            <p>VocalPad is an innovative web application designed to make note-taking effortless and efficient. Whether you're a student, professional, or simply someone who loves capturing thoughts on the go, VocalPad offers an ideal solution.
+            With VocalPad, users can create notes by speaking instead of typing, Your voice is instantly converted into text, which can then be saved as a PDF for future reference. But it doesn't stop there! VocalPad also allows you to upload saved PDFs, edit them, and even listen to the content 
+                </p>
+
+            <h2>Our Mission</h2>
+            <p>Our mission is that users can save their time by  creating their notes by speaking, so there's no need to type and when they want they can listen it.Overall, Vocal Pad provides an efficient and accessible way to take and manage notes effortlessly.</p>
+
+            <h2>Objectives</h2>
+            <ul>
+                <li>To make note-taking easy and efficient for users of all backgrounds</li>
+                <li>To allow users to create notes by speaking instead of typing.</li>
+                <li>To convert spoken words into text instantly for quick note creation.</li>
+                <li>To enable users to save their notes as PDFs for easy storage and sharing.</li>
+                <li>To allow users to listen to their notes for convenient reviewing.</li>
+            </ul>
+
+            <h2>Our Values</h2>
+            <p>VocalPad creates a flexible, user-friendly experience that caters to a wide range of users, from professionals and students to individuals with disabilities or those who prefer hands-free, efficient workflows</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <h2>Contact Person </h2>
+        <div class="contact-details">
+            <!-- User 1 -->
+            <div class="user">
+                <img src="{%static 'vocal_app/images/aman.jpg'%}" alt="User 1">
+                <p>Aman Shukla</p>
+                <!-- <p>Pathologist</p> -->
+                <p>Email: amanshukla@gmail.com</p>
+                <p>Phone: 6567889659</p>
+            </div>
+
+            <!-- User 2 -->
+            <div class="user">
+                <img src="{%static 'vocal_app/images/khushi.jpg'%}" alt="User 2">
+                <p>Khushi Mishra</p>
+                <!-- <p>Lab Technician</p> -->
+                <p>Email: khushimishra@gmail.com</p>
+                <p>Phone: 6386964544</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- body content code end -->
+</div>
+    {% include 'vocal_app/common/footer.html' %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

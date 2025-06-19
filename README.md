@@ -26,7 +26,7 @@
 
 ##  Project Structure Overview
 
-
+```bash
 vocal_pad/
 ├── vocal_app/
 │   ├── templates/
@@ -35,7 +35,7 @@ vocal_pad/
 ├── media/
 ├── db.sqlite3
 ├── manage.py 
-
+```
 
 
 ## How To Run
@@ -46,11 +46,12 @@ vocal_pad/
    cd vocal-pad
    
 2. Create & Activate Virtual Environment:
+    ```bash
     python -m venv env
     env\Scripts\activate
 
 3. Run migrations and start Server:
-
+    ```bash
     python manage.py migrate
     python manage.py runserver
 

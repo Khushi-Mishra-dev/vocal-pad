@@ -26,7 +26,7 @@
 
 ##  Project Structure Overview
 
-```bash
+
 vocal_pad/
 ├── vocal_app/
 │   ├── templates/
@@ -36,7 +36,7 @@ vocal_pad/
 ├── db.sqlite3
 ├── manage.py 
 
-'''
+
 
 ## How To Run
 
